@@ -1,22 +1,11 @@
----
-title: LSA Fingerspelling
-emoji: 🤟
-colorFrom: blue
-colorTo: purple
-sdk: gradio
-sdk_version: 5.50.0
-python_version: '3.11'
-app_file: src/app.py
-pinned: false
-short_description: Reconocimiento del alfabeto LSA con MediaPipe
----
-
 # LSA Fingerspelling
 
 Reconocimiento del alfabeto dactilológico de la Lengua de Señas Argentina (LSA)
 usando MediaPipe Hands + scikit-learn, desplegado con Gradio en Hugging Face Spaces.
 
-Es un proyecto académico: a partir de los 21 puntos de la mano que detecta
+🔗 Demo en vivo: https://huggingface.co/spaces/matiascodeds/lsa-fingerspelling
+
+Proyecto académico: a partir de los 21 puntos de la mano que detecta
 MediaPipe, normalizados y convertidos en un vector de 63 features, un
 clasificador de scikit-learn predice qué letra está haciendo el usuario.
 No se procesan imágenes crudas con redes neuronales, solo coordenadas
