@@ -49,14 +49,24 @@ def predecir_letra(imagen):
     return prediccion
 
 
-demo = gr.Interface(
-    fn=predecir_letra,
-    inputs=gr.Image(sources=["webcam"], streaming=True, label="Webcam"),
-    outputs=gr.Textbox(label="Letra detectada"),
-    live=True,
-    title="Reconocimiento de Alfabeto Dactilológico LSA",
-    description="Mostrá una letra del alfabeto dactilológico de LSA frente a la cámara.",
-)
+with gr.Blocks(title="Reconocimiento de Alfabeto Dactilológico LSA") as demo:
+    gr.Markdown(
+        "# Reconocimiento de Alfabeto Dactilológico LSA\n"
+        "Mostrá una letra del alfabeto dactilológico de LSA frente a la cámara."
+    )
+    entrada = gr.Image(sources=["webcam"], streaming=True, label="Webcam")
+    salida = gr.Textbox(label="Letra detectada")
+
+    # stream_every limita la frecuencia de frames procesados (uno cada 0.5s
+    # en vez de a la velocidad máxima de la cámara), para evitar que en
+    # conexiones remotas (como Hugging Face Spaces) se acumulen frames y
+    # el video se vea entrecortado/vibrando.
+    entrada.stream(
+        fn=predecir_letra,
+        inputs=entrada,
+        outputs=salida,
+        stream_every=0.5,
+    )
 
 if __name__ == "__main__":
     demo.launch(ssr_mode=False)
