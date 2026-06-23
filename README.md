@@ -7,6 +7,7 @@ sdk: gradio
 sdk_version: 5.50.0
 app_file: src/app.py
 pinned: false
+short_description: Reconocimiento del alfabeto dactilológico de LSA con MediaPipe
 ---
 
 # LSA Fingerspelling
