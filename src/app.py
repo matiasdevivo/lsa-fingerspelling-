@@ -54,8 +54,9 @@ with gr.Blocks(title="Reconocimiento de Alfabeto Dactilológico LSA") as demo:
         "# Reconocimiento de Alfabeto Dactilológico LSA\n"
         "Mostrá una letra del alfabeto dactilológico de LSA frente a la cámara."
     )
-    entrada = gr.Image(sources=["webcam"], streaming=True, label="Webcam")
-    salida = gr.Textbox(label="Letra detectada")
+    with gr.Row():
+        entrada = gr.Image(sources=["webcam"], streaming=True, label="Webcam")
+        salida = gr.Textbox(label="Letra detectada")
 
     # stream_every limita la frecuencia de frames procesados (uno cada 0.5s
     # en vez de a la velocidad máxima de la cámara), para evitar que en
