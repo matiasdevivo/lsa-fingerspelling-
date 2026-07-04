@@ -13,11 +13,14 @@ numéricas de landmarks.
 
 ## Estructura
 
-- `data/raw/` — CSV con landmarks normalizados por letra (dataset de entrenamiento).
-- `models/` — modelo entrenado (`modelo.joblib`).
+- `data/raw/` — CSV con landmarks normalizados por letra (letras estáticas).
+- `data/sequences/{LETRA}/` — secuencias de frames para señas dinámicas.
+- `models/` — modelos entrenados (`modelo.joblib`, `modelo_dinamico.keras`).
 - `src/landmarks.py` — extracción y normalización de landmarks.
-- `src/collect.py` — captura interactiva de dataset con webcam.
-- `src/train.py` — entrenamiento del clasificador.
+- `src/collect.py` — captura interactiva de dataset estático con webcam.
+- `src/collect_dynamic.py` — captura de secuencias para señas dinámicas.
+- `src/train.py` — entrenamiento del clasificador estático (Random Forest).
+- `src/train_dynamic.py` — entrenamiento del clasificador dinámico (LSTM).
 - `src/app.py` — interfaz Gradio (punto de entrada del Space).
 
 ## Uso local
@@ -26,13 +29,20 @@ numéricas de landmarks.
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+pip install tensorflow==2.15.0  # solo para señas dinámicas
 
-# Capturar muestras de una letra
+# Capturar muestras de una letra estática (SPACE = guardar, Q = salir)
 python src/collect.py --letter A --samples 80
 
-# Entrenar el modelo con todo lo capturado
+# Entrenar el modelo estático con todo lo capturado
 python src/train.py
 
-# Correr la app
+# Capturar secuencias de una seña dinámica (SPACE = iniciar grabación de 2.5s, Q = salir)
+python src/collect_dynamic.py --letter LL --samples 30
+
+# Entrenar el modelo dinámico (LSTM) con las secuencias capturadas
+python src/train_dynamic.py
+
+# Correr la app (pestaña dinámica requiere TensorFlow instalado)
 python src/app.py
 ```
